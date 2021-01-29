@@ -15,9 +15,12 @@ public class MainRooms : MonoBehaviour
         LONELY
 
     };
+    public float rotationSpeed = 0.75f;
+    public float resetLimit = 5f;
 
-    public float rotateAngle = 90;
 
+    private Quaternion targetRotation;
+    private bool rotating = false;
     void Start()
     {
     }
@@ -32,9 +35,23 @@ public class MainRooms : MonoBehaviour
     {
     }
 
+    void FixedUpdate() {
+        float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        if(angle < resetLimit)
+        {
+            transform.rotation = targetRotation;
+            rotating = false;
+        }
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    }
+
 
     public static void Rotate()
     {
+        if(instance.rotating == true)
+            return;
+
         Vector3 direction = Vector3.right;
 
         float verticalValue = Input.GetAxis("Vertical");
@@ -59,7 +76,8 @@ public class MainRooms : MonoBehaviour
             }
         }
 
-        instance.transform.Rotate(direction, instance.rotateAngle, Space.World);
+        instance.targetRotation = Quaternion.AngleAxis(90, direction) * instance.transform.rotation;
+        instance.rotating = true;
     }
 
 }
