@@ -16,7 +16,7 @@ public class MainRooms : MonoBehaviour
 
     };
     public float rotationSpeed = 0.75f;
-    public float resetLimit = 5f;
+    public float resetLimit = 2f;
 
 
     private Quaternion targetRotation;
@@ -37,8 +37,9 @@ public class MainRooms : MonoBehaviour
 
     void FixedUpdate() {
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
-        if(angle < resetLimit)
+        if(rotating && angle < resetLimit)
         {
+            Camera.main.GetComponent<CameraShake>().Shake();
             transform.rotation = targetRotation;
             rotating = false;
         }
