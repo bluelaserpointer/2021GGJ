@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementDirection;
     public float m_RaycastRange = 50f;
     private GameObject lastHitWall;
+    // private Collider lastCollider;
+
 
     private void Awake()
     {
@@ -60,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         // Play the correct audio clip based on whether or not the player is moving and what audio is currently playing.
 
         // Checks if the player is moving
-        if (!CheckMovement())
+        if (!CheckMovement() || MainRooms.IsRotating())
         {
             m_MovementAudio.Stop();
         }
@@ -83,6 +86,8 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Turn();
         Raycast();
+        // CheckInteraction();
+
     }
 
 
@@ -103,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Turn()
     {
-        if (CheckMovement())
+        if (CheckMovement() && !MainRooms.IsRotating())
         {
             transform.LookAt(movementDirection);
         }
@@ -112,19 +117,19 @@ public class PlayerMovement : MonoBehaviour
     private void Raycast()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward, out hit, m_RaycastRange))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, m_RaycastRange))
         {
             GameObject hitObject = hit.transform.gameObject;
             MainRoomsWall mainRoomsWall = hitObject.GetComponent<MainRoomsWall>();
-            if(mainRoomsWall != null)
+            if (mainRoomsWall != null)
             {
-                if(lastHitWall == null)
+                if (lastHitWall == null)
                 {
                     lastHitWall = hit.transform.gameObject;
                     lastHitWall.GetComponent<MainRoomsWall>().hit = true;
                 }
 
-                if(hit.transform.gameObject != lastHitWall)
+                if (hit.transform.gameObject != lastHitWall)
                 {
                     lastHitWall.GetComponent<MainRoomsWall>().hit = false;
                     lastHitWall = hit.transform.gameObject;
@@ -134,6 +139,8 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+
+
 
     private bool CheckMovement()
     {
@@ -147,6 +154,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void CheckInteraction(Collider collider)
+    {
+        if (Input.GetButtonDown("Interaction"))
+        {
+            Debug.Log("Transporting to scene " + collider.GetComponent<BlackHole>().transportScene);
+            Player.lastScene = SceneManager.GetActiveScene().name;
+            collider.GetComponent<BlackHole>().Transport();
+        }
+    }
 
-   
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "TransportHole")
+        {
+            // lastCollider = collision.collider;
+            // Debug.Log("Colliding with TransportHole");
+
+            CheckInteraction(collision.collider);
+        }
+    }
+
+
+
 }

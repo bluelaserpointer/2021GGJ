@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 12
-  m_TurnSpeed: 180
   m_MovementAudio: {fileID: 7229243878500855893}
-  m_MovementClip: {fileID: 8300000, guid: 4d11813f5983ce047873c94858e6a6c1, type: 3}
-  m_PitchRange: 0.2
+  m_HorizontalMovementInputValue: 0
+  m_VerticalMovementInputValue: 0
+  m_RaycastRange: 50
 --- !u!82 &7229243878500855893
 AudioSource:
   m_ObjectHideFlags: 0
