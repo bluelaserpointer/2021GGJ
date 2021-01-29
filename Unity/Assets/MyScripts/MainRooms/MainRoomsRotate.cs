@@ -18,6 +18,14 @@ public class MainRoomsRotate : MonoBehaviour
 
     public MainRoomType currRoomType = MainRoomType.WARM;
 
+    public float pushWallTimeLimit = 2f;
+
+    public float currPushWallTime = 0f;
+
+    public Transform rooms;
+    public float pushOffset = 5f;
+
+
     void Start()
     {
         
@@ -34,7 +42,48 @@ public class MainRoomsRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         Rotate();
+    }
+
+
+
+    private void HandleCollision()
+    {
+
+        if(Input.GetKeyDown(KeyCode.W))
+            HandlePushWall();
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        Debug.Log("OnCollisionEnter");
+    }
+
+    void OnCollisionStay(Collision other) {
+        Debug.Log("Collided");
+        if(other.gameObject.name == "PlayerVer1")
+        {
+            Debug.Log("Colliding!");
+        }
+    }
+
+    private void HandlePushWall()
+    {
+        float currDir = transform.rotation.y;
+
+        if(-90 - pushOffset <= currDir && currDir <= -90 + pushOffset)
+        {
+
+        }else if(90 - pushOffset <= currDir && currDir <= 90 + pushOffset)
+        {
+
+        }else if(-180 - pushOffset <= currDir && currDir <= -180 + pushOffset)
+        {
+
+        }else{
+
+        }
     }
 
     void Rotate()
@@ -42,25 +91,25 @@ public class MainRoomsRotate : MonoBehaviour
         int degrees = 0;
         Vector3 direction = Vector3.right;
 
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             direction = Vector3.right;
             degrees = 90;
         }
 
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             direction = Vector3.left;
             degrees = 90;
         }
 
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             direction = Vector3.back;
             degrees = 90;
         }
 
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             direction = Vector3.forward;
             degrees = 90;
@@ -68,4 +117,5 @@ public class MainRoomsRotate : MonoBehaviour
 
         transform.Rotate(direction, degrees, Space.World);
     }
+
 }
