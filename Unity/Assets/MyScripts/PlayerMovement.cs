@@ -5,18 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float m_Speed = 12f;
-    public float m_TurnSpeed = 180f;
     public AudioSource m_MovementAudio;
-    public AudioClip m_MovementClip;
-    public float m_PitchRange = 0.2f;
-
 
     private string m_HorizontalMovementAxisName;
     private string m_VerticalMovementAxisName;
     private Rigidbody m_Rigidbody;
     private float m_HorizontalMovementInputValue;
     private float m_VerticalMovementInputValue;
-    private float m_OriginalPitch;
+    private Vector3 movementDirection;
 
 
     private void Awake()
@@ -43,8 +39,6 @@ public class PlayerMovement : MonoBehaviour
     {
         m_HorizontalMovementAxisName = "Vertical";
         m_VerticalMovementAxisName = "Horizontal";
-
-        m_OriginalPitch = m_MovementAudio.pitch;
     }
 
 
@@ -55,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         m_HorizontalMovementInputValue = Input.GetAxis(m_HorizontalMovementAxisName);
         m_VerticalMovementInputValue = Input.GetAxis(m_VerticalMovementAxisName);
 
-        Debug.Log("Audio is playing " + m_MovementAudio.isPlaying);
 
         MovementAudio();
 
@@ -67,9 +60,8 @@ public class PlayerMovement : MonoBehaviour
         // Play the correct audio clip based on whether or not the player is moving and what audio is currently playing.
 
         // Checks if the player is moving
-        if (Mathf.Abs(m_HorizontalMovementInputValue) < 0.1f && Mathf.Abs(m_VerticalMovementInputValue) < 0.1f)
+        if (!CheckMovement())
         {
-            Debug.Log("Player is not moving");
             m_MovementAudio.Stop();
         }
         else
@@ -89,15 +81,20 @@ public class PlayerMovement : MonoBehaviour
         // Move and turn the player.
 
         Move();
+        Turn();
     }
 
 
     private void Move()
     {
         // Adjust the position of the player based on the player's input.
-        Vector3 movement = (transform.forward * m_HorizontalMovementInputValue + transform.right * m_VerticalMovementInputValue) * m_Speed * Time.deltaTime;
+        if (CheckMovement())
+        {
+            movementDirection = m_Rigidbody.position + (Vector3.forward * m_HorizontalMovementInputValue + Vector3.right * m_VerticalMovementInputValue) * m_Speed * Time.deltaTime;
 
-        m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+            m_Rigidbody.MovePosition(movementDirection);
+        }
+
 
 
     }
@@ -105,12 +102,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Turn()
     {
-        // Adjust the rotation of the player based on the player's input.
+        if (CheckMovement())
+        {
+            transform.LookAt(movementDirection);
+        }
+    }
 
-        float turn = m_VerticalMovementInputValue * m_TurnSpeed * Time.deltaTime;
-
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-
-        m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+    private bool CheckMovement()
+    {
+        if (Mathf.Abs(m_HorizontalMovementInputValue) > 0.0f || Mathf.Abs(m_VerticalMovementInputValue) > 0.0f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
