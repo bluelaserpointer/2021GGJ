@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementDirection;
     public float m_RaycastRange = 50f;
     private GameObject lastHitWall;
-    private Collider lastCollider;
+    // private Collider lastCollider;
 
 
     private void Awake()
@@ -86,12 +86,8 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Turn();
         Raycast();
-        CheckInteraction();
-        if (Player.lastScene != null && Player.lastScene != "")
-        {
-            Debug.Log("Last scene is " + Player.lastScene);
+        // CheckInteraction();
 
-        }
     }
 
 
@@ -158,22 +154,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckInteraction()
+    private void CheckInteraction(Collider collider)
     {
         if (Input.GetButtonDown("Interaction"))
         {
-            Debug.Log("Transporting to scene " + lastCollider.GetComponent<BlackHole>().transportScene);
+            Debug.Log("Transporting to scene " + collider.GetComponent<BlackHole>().transportScene);
             Player.lastScene = SceneManager.GetActiveScene().name;
-            lastCollider.GetComponent<BlackHole>().Transport();
+            collider.GetComponent<BlackHole>().Transport();
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (collision.collider.tag == "TransportHole")
         {
-            lastCollider = collision.collider;
-            Debug.Log("Colliding with TransportHole");
+            // lastCollider = collision.collider;
+            // Debug.Log("Colliding with TransportHole");
+
+            CheckInteraction(collision.collider);
         }
     }
 
