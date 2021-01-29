@@ -80,4 +80,9 @@ public class MainRooms : MonoBehaviour
         instance.rotating = true;
     }
 
+    public static bool IsRotating()
+    {
+        return instance.rotating;
+    }
+
 }

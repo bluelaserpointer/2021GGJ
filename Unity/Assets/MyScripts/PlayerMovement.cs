@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         // Adjust the position of the player based on the player's input.
-        if (CheckMovement())
+        if (CheckMovement() && !MainRooms.IsRotating())
         {
             movementDirection = m_Rigidbody.position + (Vector3.forward * m_HorizontalMovementInputValue + Vector3.right * m_VerticalMovementInputValue) * m_Speed * Time.deltaTime;
 
