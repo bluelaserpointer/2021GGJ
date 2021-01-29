@@ -10,10 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private string m_HorizontalMovementAxisName;
     private string m_VerticalMovementAxisName;
     private Rigidbody m_Rigidbody;
-    private float m_HorizontalMovementInputValue;
-    private float m_VerticalMovementInputValue;
+    public float m_HorizontalMovementInputValue;
+    public float m_VerticalMovementInputValue;
     private Vector3 movementDirection;
-
+    public float m_RaycastRange = 50f;
+    private GameObject lastHitWall;
 
     private void Awake()
     {
@@ -49,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
         m_HorizontalMovementInputValue = Input.GetAxis(m_HorizontalMovementAxisName);
         m_VerticalMovementInputValue = Input.GetAxis(m_VerticalMovementAxisName);
 
-
         MovementAudio();
 
     }
@@ -82,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
         Turn();
+        Raycast();
     }
 
 
@@ -105,6 +106,27 @@ public class PlayerMovement : MonoBehaviour
         if (CheckMovement())
         {
             transform.LookAt(movementDirection);
+        }
+    }
+
+    private void Raycast()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward, out hit, m_RaycastRange))
+        {
+            if(lastHitWall == null)
+            {
+                lastHitWall = hit.transform.gameObject;
+                lastHitWall.GetComponent<MainRoomsWall>().hit = true;
+            }
+
+            if(hit.transform.gameObject != lastHitWall)
+            {
+                lastHitWall.GetComponent<MainRoomsWall>().hit = false;
+                lastHitWall = hit.transform.gameObject;
+                lastHitWall.GetComponent<MainRoomsWall>().hit = true;
+            }
+
         }
     }
 

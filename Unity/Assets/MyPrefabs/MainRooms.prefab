@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 6554058532162205852}
   - component: {fileID: 6554058532162205853}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: HappyYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 6554058532338549054}
   - component: {fileID: 6554058532338549055}
   m_Layer: 0
-  m_Name: Plane (2)
+  m_Name: GreyLonely
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2585e2224b0b58344ac4be7b14f3f86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currRoomType: 3
+  pushWallTimeLimit: 2
+  currPushWallTime: 0
+  rooms: {fileID: 0}
+  pushOffset: 5
 --- !u!1 &6554058533371202318
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +285,7 @@ GameObject:
   - component: {fileID: 6554058533371202316}
   - component: {fileID: 6554058533371202317}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: GreenHealthy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +379,7 @@ GameObject:
   - component: {fileID: 6554058533604628901}
   - component: {fileID: 6554058533604628902}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: BlackDesperate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,7 +473,7 @@ GameObject:
   - component: {fileID: 6554058533638257931}
   - component: {fileID: 6554058533638257932}
   m_Layer: 0
-  m_Name: Plane (2)
+  m_Name: BlueSad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +567,7 @@ GameObject:
   - component: {fileID: 6554058533658880011}
   - component: {fileID: 6554058533658880012}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: OrangeWarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
