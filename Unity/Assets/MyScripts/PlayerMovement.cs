@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float m_RaycastRange = 50f;
     private GameObject lastHitWall;
     private Collider lastCollider;
+
 
     private void Awake()
     {
@@ -85,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
         Turn();
         Raycast();
         CheckInteraction();
+        if (Player.lastScene != null && Player.lastScene != "")
+        {
+            Debug.Log("Last scene is " + Player.lastScene);
+
+        }
     }
 
 
@@ -153,17 +160,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckInteraction()
     {
-        if (Input.GetButtonDown("Transport"))
+        if (Input.GetButtonDown("Interaction"))
         {
             Debug.Log("Transporting to scene " + lastCollider.GetComponent<BlackHole>().transportScene);
+            Player.lastScene = SceneManager.GetActiveScene().name;
             lastCollider.GetComponent<BlackHole>().Transport();
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        lastCollider = collision.collider;
-
+        if (collision.collider.tag == "TransportHole")
+        {
+            lastCollider = collision.collider;
+            Debug.Log("Colliding with TransportHole");
+        }
     }
 
 
