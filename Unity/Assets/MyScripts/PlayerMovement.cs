@@ -114,17 +114,22 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(transform.position, transform.forward, out hit, m_RaycastRange))
         {
-            if(lastHitWall == null)
+            GameObject hitObject = hit.transform.gameObject;
+            MainRoomsWall mainRoomsWall = hitObject.GetComponent<MainRoomsWall>();
+            if(mainRoomsWall != null)
             {
-                lastHitWall = hit.transform.gameObject;
-                lastHitWall.GetComponent<MainRoomsWall>().hit = true;
-            }
+                if(lastHitWall == null)
+                {
+                    lastHitWall = hit.transform.gameObject;
+                    lastHitWall.GetComponent<MainRoomsWall>().hit = true;
+                }
 
-            if(hit.transform.gameObject != lastHitWall)
-            {
-                lastHitWall.GetComponent<MainRoomsWall>().hit = false;
-                lastHitWall = hit.transform.gameObject;
-                lastHitWall.GetComponent<MainRoomsWall>().hit = true;
+                if(hit.transform.gameObject != lastHitWall)
+                {
+                    lastHitWall.GetComponent<MainRoomsWall>().hit = false;
+                    lastHitWall = hit.transform.gameObject;
+                    lastHitWall.GetComponent<MainRoomsWall>().hit = true;
+                }
             }
 
         }
