@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public static class Player
 {
     public static string lastScene;
     public static TransformType transformType;
     public static List<TransformType> transforms = new List<TransformType>();
+    public static List<TransformType> completelyUsedTransforms = new List<TransformType>();
     static Player()
     {
         transforms.Add(transformType = TransformType.Normal);
