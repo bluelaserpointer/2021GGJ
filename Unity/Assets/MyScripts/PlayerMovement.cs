@@ -188,7 +188,9 @@ public class PlayerMovement : MonoBehaviour
         TransformItem item = collision.collider.GetComponent<TransformItem>();
         if (item != null)
         {
-
+            Player.transforms.Add(item.type);
+            item.gameObject.SetActive(false);
+            //TODO: item get notify(UI & SE)
         }
 
         // TODO: Jump should only occur when colliding with ground
