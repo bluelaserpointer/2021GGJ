@@ -1671,8 +1671,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comeFromScenes:
   - "\u624B\u672F\u5BA4"
-  gotoScene: "\u624B\u672F\u5BA4"
-  needInteraction: 1
+  gotoScene: 
+  needInteraction: 0
 --- !u!1001 &1535282589
 PrefabInstance:
   m_ObjectHideFlags: 0

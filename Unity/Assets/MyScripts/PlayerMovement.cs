@@ -168,11 +168,11 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
         TransportSpot transportSpot = collision.collider.GetComponent<TransportSpot>();
-        if (transportSpot != null)
+        if (transportSpot != null && transportSpot.gotoScene != null && transportSpot.gotoScene.Length > 0)
         {
             // lastCollider = collision.collider;
             // Debug.Log("Colliding with TransportHole");
-            if (transportSpot.gotoScene != null && (!transportSpot.needInteraction || CheckInteraction()))
+            if (!transportSpot.needInteraction || CheckInteraction())
             {
                 Transport(transportSpot);
             }

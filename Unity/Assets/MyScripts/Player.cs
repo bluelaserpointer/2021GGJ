@@ -5,5 +5,4 @@ using UnityEngine;
 public static class Player
 {
     public static string lastScene;
-
 }
