@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: "Assets/Scenes/\u5815\u843D/\u5815\u843D.unity"
     guid: 61eeabe150fd6724fab615b782fc6052
   - enabled: 1
-    path: "Assets/Scenes/\u7A7A\u95F4\u7AD9/\u7A7A\u95F4\u7AD9.unity"
+    path: "Assets/Scenes/\u7A7A\u95F4\u7AD9/\u7A7A\u95F4\u7AD9-\u5317.unity"
     guid: 09a36206e0e1d4343a163683f58a328c
   - enabled: 1
     path: "Assets/Scenes/\u548C\u98CE\u5C71\u6751/\u548C\u98CE\u5C71\u6751.unity"
