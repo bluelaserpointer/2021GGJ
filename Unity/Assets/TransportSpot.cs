@@ -24,7 +24,7 @@ public class TransportSpot : MonoBehaviour
             Instantiate(Resources.Load("PlayerVer1"), transform.position + transform.up * 1, transform.rotation);
         }
     }
-    public void Transport()
+    public virtual void Transport()
     {
         SceneManager.LoadScene(gotoScene);
     }
