@@ -23582,8 +23582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4081bd3e41b1c84fac0b568f883b29c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comeFromScenes: []
-  gotoScene: "\u76D1\u72F1"
+  comeFromScenes:
+  - "\u76D1\u72F1"
+  gotoScene: 
   needInteraction: 0
 --- !u!4 &751160498
 Transform:

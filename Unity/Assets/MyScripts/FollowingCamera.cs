@@ -11,13 +11,15 @@ public class FollowingCamera : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        distance =  lookedAt.transform.position - transform.position;
+        distance = lookedAt.transform.position - transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(player != null)
+        if (player != null)
             transform.position = player.transform.position - distance;
+        else
+            player = GameObject.FindGameObjectWithTag("Player");
     }
 }
