@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightBreath : MonoBehaviour
+public class LightRangeBreath : MonoBehaviour
 {
     private Light lightSource;
     public float lightRangeMax = 50;
