@@ -154,24 +154,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckInteraction(Collider collider)
+    private bool CheckInteraction()
     {
-        if (Input.GetButtonDown("Interaction"))
-        {
-            Debug.Log("Transporting to scene " + collider.GetComponent<BlackHole>().transportScene);
-            Player.lastScene = SceneManager.GetActiveScene().name;
-            collider.GetComponent<BlackHole>().Transport();
-        }
+        return Input.GetButtonDown("Interaction");
+    }
+    public void Transport(TransportSpot transportSpot)
+    {
+        Debug.Log("Transporting to scene " + transportSpot.gotoScene);
+        Player.lastScene = SceneManager.GetActiveScene().name;
+        transportSpot.Transport();
     }
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.tag == "TransportHole")
+        TransportSpot transportSpot = collision.collider.GetComponent<TransportSpot>();
+        if (transportSpot != null)
         {
             // lastCollider = collision.collider;
             // Debug.Log("Colliding with TransportHole");
-
-            CheckInteraction(collision.collider);
+            if (transportSpot.gotoScene != null && (!transportSpot.needInteraction || CheckInteraction()))
+            {
+                Transport(transportSpot);
+            }
         }
     }
 
