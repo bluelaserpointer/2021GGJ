@@ -16,6 +16,7 @@ public enum TransformType
     [Description("绳索")]
     Lope,
 }
+[DisallowMultipleComponent]
 public class TransformItem : MonoBehaviour
 {
     public TransformType type;

@@ -55,13 +55,14 @@ public class PlayerMovement : MonoBehaviour
         MovementAudio();
 
         //transform
-        if(Input.GetButton("Transform") && Player.transforms.Count > 1)
+        if (Input.GetButton("Transform") && Player.transforms.Count > 1)
         {
             Player.NextTransform();
             //TODO: SE
         }
         //jump TODO: prevent flying
-        if(Input.GetButton("Jump")) {
+        if (Input.GetButton("Jump"))
+        {
             m_Rigidbody.AddForce(transform.up * 10);
         }
     }
@@ -176,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
+        //transport
         TransportSpot transportSpot = collision.collider.GetComponent<TransportSpot>();
         if (transportSpot != null && transportSpot.gotoScene != null && transportSpot.gotoScene.Length > 0)
         {
@@ -186,8 +188,11 @@ public class PlayerMovement : MonoBehaviour
                 Transport(transportSpot);
             }
         }
+        //transformItem
+        TransformItem item = collision.collider.GetComponent<TransformItem>();
+        if (item != null)
+        {
+            
+        }
     }
-
-
-
 }
