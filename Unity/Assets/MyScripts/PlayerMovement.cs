@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         m_VerticalMovementAxisName = "Horizontal";
     }
 
-
     private void Update()
     {
         // Store the player's input and make sure the audio for the movement is playing.
@@ -55,6 +54,16 @@ public class PlayerMovement : MonoBehaviour
 
         MovementAudio();
 
+        //transform
+        if(Input.GetButton("Transform") && Player.transforms.Count > 1)
+        {
+            Player.NextTransform();
+            //TODO: SE
+        }
+        //jump TODO: prevent flying
+        if(Input.GetButton("Jump")) {
+            m_Rigidbody.AddForce(transform.up * 10);
+        }
     }
 
 
