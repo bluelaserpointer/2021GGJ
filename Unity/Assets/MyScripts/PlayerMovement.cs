@@ -60,11 +60,7 @@ public class PlayerMovement : MonoBehaviour
             Player.NextTransform();
             //TODO: SE
         }
-        //jump TODO: prevent flying
-        if (Input.GetButton("Jump"))
-        {
-            m_Rigidbody.AddForce(transform.up * 10);
-        }
+
     }
 
 
@@ -192,7 +188,20 @@ public class PlayerMovement : MonoBehaviour
         TransformItem item = collision.collider.GetComponent<TransformItem>();
         if (item != null)
         {
-            
+
+        }
+
+        // TODO: Jump should only occur when colliding with ground
+        Jump();
+    }
+
+    private void Jump()
+    {
+        //jump TODO: prevent flying
+        if (Input.GetButton("Jump"))
+        {
+            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, 0);//施加y方向速度，x方向维持原速
+            m_Rigidbody.AddForce(new Vector2(m_Rigidbody.velocity.x, 30f));
         }
     }
 }
