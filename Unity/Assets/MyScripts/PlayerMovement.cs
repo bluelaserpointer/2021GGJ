@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         m_VerticalMovementAxisName = "Horizontal";
     }
 
-
     private void Update()
     {
         // Store the player's input and make sure the audio for the movement is playing.
@@ -54,6 +53,13 @@ public class PlayerMovement : MonoBehaviour
         m_VerticalMovementInputValue = Input.GetAxis(m_VerticalMovementAxisName);
 
         MovementAudio();
+
+        //transform
+        if (Input.GetButton("Transform") && Player.transforms.Count > 1)
+        {
+            Player.NextTransform();
+            //TODO: SE
+        }
 
     }
 
@@ -167,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
+        //transport
         TransportSpot transportSpot = collision.collider.GetComponent<TransportSpot>();
         if (transportSpot != null && transportSpot.gotoScene != null && transportSpot.gotoScene.Length > 0)
         {
@@ -177,8 +184,24 @@ public class PlayerMovement : MonoBehaviour
                 Transport(transportSpot);
             }
         }
+        //transformItem
+        TransformItem item = collision.collider.GetComponent<TransformItem>();
+        if (item != null)
+        {
+
+        }
+
+        // TODO: Jump should only occur when colliding with ground
+        Jump();
     }
 
-
-
+    private void Jump()
+    {
+        //jump TODO: prevent flying
+        if (Input.GetButton("Jump"))
+        {
+            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, 0);//施加y方向速度，x方向维持原速
+            m_Rigidbody.AddForce(new Vector2(m_Rigidbody.velocity.x, 30f));
+        }
+    }
 }
