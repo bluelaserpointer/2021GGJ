@@ -11853,7 +11853,7 @@ GameObject:
   - component: {fileID: 688479157}
   - component: {fileID: 688479155}
   m_Layer: 0
-  m_Name: "<<<\u6708\u7403"
+  m_Name: <<<All
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11873,7 +11873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comeFromScenes:
   - "\u6708\u7403"
-  - "\u5927\u6D1E\u7A74"
+  - "\u7CD6\u679C"
   gotoScene: 
   needInteraction: 0
 --- !u!23 &688479157
@@ -23125,7 +23125,7 @@ GameObject:
   - component: {fileID: 1226580546}
   - component: {fileID: 1226580545}
   m_Layer: 0
-  m_Name: ">>>\u6708\u7403"
+  m_Name: ">>>\u7CD6\u679C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23144,7 +23144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comeFromScenes: []
-  gotoScene: "\u6708\u7403"
+  gotoScene: "\u7CD6\u679C"
   needInteraction: 0
 --- !u!23 &1226580546
 MeshRenderer:
