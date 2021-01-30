@@ -78,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
             if (!m_MovementAudio.isPlaying)
             {
                 m_MovementAudio.Play();
-
             }
 
         }
