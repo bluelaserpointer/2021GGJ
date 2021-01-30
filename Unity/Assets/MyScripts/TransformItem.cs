@@ -7,14 +7,18 @@ public enum TransformType
 {
     [Description("初始")]
     Normal,
+    [Description("种子")]
+    Seed,
     [Description("手术刀")]
     Scalpel,
-    [Description("盾牌")]
-    Shield,
     [Description("火把")]
     Torch,
     [Description("绳索")]
     Lope,
+    [Description("钥匙")]
+    Key,
+    [Description("药")]
+    Medicine,
 }
 [DisallowMultipleComponent]
 public class TransformItem : MonoBehaviour
