@@ -15,7 +15,13 @@ public class TransportSpot : MonoBehaviour
     {
         if (comeFromScenes.Contains(Player.lastScene))
         {
-            Instantiate(Resources.Load("PlayerVer1"), transform, false);
+            if(SceneManager.GetActiveScene().name.Equals("MainRoom"))
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player != null)
+                    Destroy(player);
+            }   
+            Instantiate(Resources.Load("PlayerVer1"), transform.position + transform.up * 1, transform.rotation);
         }
     }
     public void Transport()

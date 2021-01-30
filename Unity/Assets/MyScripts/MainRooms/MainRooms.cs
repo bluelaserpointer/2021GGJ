@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainRooms : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class MainRooms : MonoBehaviour
 
     private void Awake() {
         if (instance == null)
-                instance = this;   
+            instance = this;   
     }
 
     // Update is called once per frame
@@ -83,7 +84,7 @@ public class MainRooms : MonoBehaviour
 
     public static bool IsRotating()
     {
-        return instance.rotating;
+        return SceneManager.GetActiveScene().name.Equals("MainRoom") && instance.rotating;
     }
 
 }
