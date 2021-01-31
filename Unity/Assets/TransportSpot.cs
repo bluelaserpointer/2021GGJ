@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DisallowMultipleComponent]
 public class TransportSpot : MonoBehaviour
 {
     [Header("来自<<<")]

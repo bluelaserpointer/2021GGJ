@@ -12243,6 +12243,7 @@ MonoBehaviour:
   comeFromScenes:
   - "\u5927\u6D1E\u7A74"
   - "\u7CD6\u679C"
+  - "\u5730\u94C1\u7AD9"
   gotoScene: 
   needInteraction: 0
 --- !u!23 &688479157
