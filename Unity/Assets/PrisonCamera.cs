@@ -6,8 +6,11 @@ using Cinemachine;
 public class PrisonCamera : MonoBehaviour
 {
     public GameObject[] detections;
+    public CinemachineVirtualCamera currVirtualCamera;
+    public CinemachineVirtualCamera groundCamera;
+    public CinemachineVirtualCamera floatCamera;
+    public Transform groundDetection;
     private GameObject player;
-    private CinemachineFreeLook currFreeLook;
     private Camera mainCam;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,7 @@ public class PrisonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if(player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -28,41 +32,27 @@ public class PrisonCamera : MonoBehaviour
             Vector3 trans = player.transform.position;
             float zCoord = trans.z;
             
-            foreach (GameObject obj in detections)
+            if(zCoord < groundDetection.position.z)
             {
-                Transform obj1 = obj.transform.GetChild(0);
-                Transform obj2 = obj.transform.GetChild(1);
-
-                float zMax = obj1.transform.position.z;
-                float zMin = obj2.transform.position.z;
-
-                float zMid = (zMax + zMin) / 2;
-
-                if(zCoord > zMid && zCoord < zMax)
-                {
-                    // activate 1
-                    SetCurrent(obj1.GetComponent<CinemachineFreeLook>());
-                    return;
-                }
-                else
-                {
-                    // activate 2
-                    SetCurrent(obj2.GetComponent<CinemachineFreeLook>());
-                    return;
-                }
-
-
+                SetCurrent(groundCamera);
+                Vector3 groundTrans = groundCamera.transform.position;
+                groundCamera.transform.position = new Vector3(groundTrans.x, groundTrans.y, trans.z);
+            }else{
+                SetCurrent(floatCamera);
             }
-
         }
     }
 
-    void SetCurrent(CinemachineFreeLook setFreeLook)
+    void SetCurrent(CinemachineVirtualCamera setVirtualCamera)
     {
-        if(currFreeLook != setFreeLook)
+        if(currVirtualCamera != setVirtualCamera)
         {
-            currFreeLook.Priority = 10;
-            setFreeLook.Priority = 15;
+            Debug.Log(setVirtualCamera.gameObject.name);
+            if(currVirtualCamera != null)
+                currVirtualCamera.Priority = 10;
+
+            currVirtualCamera = setVirtualCamera;
+            currVirtualCamera.Priority = 15;
         }
     }
 }
