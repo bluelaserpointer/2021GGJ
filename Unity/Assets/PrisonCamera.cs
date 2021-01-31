@@ -41,13 +41,13 @@ public class PrisonCamera : MonoBehaviour
                 if(zCoord > zMid && zCoord < zMax)
                 {
                     // activate 1
-                    
-                    currFreeLook.Priority = 15;
+                    SetCurrent(obj1.GetComponent<CinemachineFreeLook>());
                     return;
                 }
                 else
                 {
                     // activate 2
+                    SetCurrent(obj2.GetComponent<CinemachineFreeLook>());
                     return;
                 }
 
