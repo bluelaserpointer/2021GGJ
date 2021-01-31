@@ -16,8 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementDirection;
     public float m_RaycastRange = 50f;
     private GameObject lastHitWall;
-    // private Collider lastCollider;
-
+    // private Collider lastCollider
 
     private void Awake()
     {
@@ -161,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool CheckInteraction()
     {
-        return Input.GetButtonDown("Interaction");
+        return Input.GetButton("Interaction");
     }
     public void Transport(TransportSpot transportSpot)
     {
@@ -169,11 +168,16 @@ public class PlayerMovement : MonoBehaviour
         Player.lastScene = SceneManager.GetActiveScene().name;
         transportSpot.Transport();
     }
-
-    void OnCollisionStay(Collision collision)
+    public void OnCollisionStay(Collision collision)
     {
+        OnTriggerStay(collision.collider);
+    }
+
+    public void OnTriggerStay(Collider collider)
+    {
+        Debug.Log(collider.gameObject.name);
         //transport
-        TransportSpot transportSpot = collision.collider.GetComponent<TransportSpot>();
+        TransportSpot transportSpot = collider.GetComponent<TransportSpot>();
         if (transportSpot != null && transportSpot.gotoScene != null && transportSpot.gotoScene.Length > 0)
         {
             // lastCollider = collision.collider;
@@ -184,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         //transformItem
-        TransformItem item = collision.collider.GetComponent<TransformItem>();
+        TransformItem item = collider.GetComponent<TransformItem>();
         if (item != null)
         {
             Player.transforms.Add(item.type);
